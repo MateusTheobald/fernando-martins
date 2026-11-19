@@ -1,0 +1,16 @@
+section.light2 {
+  background-color: #153D48 !important;
+  background: #153D48 !important;
+  color: #F3F4F2;
+  padding: 70px 0;
+  width: 100%;
+}
+
+section.light2 h2 {
+  color: #F3F4F2;
+}
+
+section.light2 .ph {
+  color: #F3F4F2;
+  border-color: rgba(243, 244, 242, 0.3);
+}

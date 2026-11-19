@@ -1,1 +1,29 @@
+/* BANNER */
+.hero {
+  height: calc(100vh - 84px);
+  height: calc(100svh - 84px);
+  min-height: 0;
+  box-sizing: border-box;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+  padding: 0;
+}
 
+/* CONTEÚDO COMPLETO */
+.hero .wrap {
+  width: 1028px;
+  max-width: none;
+  margin: 0 auto;
+
+  zoom: clamp(
+    0.90,
+    min(
+      1,
+      calc((100svh - 124px) / 500),
+      calc((100vw - 80px) / 1028)
+    ),
+    1
+  );
+}

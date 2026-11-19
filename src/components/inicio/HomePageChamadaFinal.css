@@ -1,0 +1,16 @@
+.finalcta {
+  background: #FFFFFF !important;
+  background-color: #FFFFFF !important;
+  color: #00222F !important;
+  padding: 70px 0;
+  width: 100%;
+}
+
+.finalcta .wrap {
+  background: transparent !important;
+}
+
+.finalcta h2,
+.finalcta p {
+  color: #00222F !important;
+}
