@@ -109,7 +109,7 @@
 }
 
 /* =========================================
-   FOTO DESKTOP — CANTOS RETOS
+   FOTO DESKTOP — TOTALMENTE QUADRADA
 ========================================= */
 
 .hero .photo {
@@ -119,7 +119,8 @@
   position: relative;
   overflow: hidden;
 
-  border-radius: 0;
+  border-radius: 0 !important;
+  box-shadow: none !important;
 }
 
 .hero .photo img {
@@ -131,7 +132,7 @@
   object-fit: cover;
   object-position: center top;
 
-  border-radius: 0;
+  border-radius: 0 !important;
 }
 
 /* =========================================
@@ -154,7 +155,7 @@
 
   .hero .photo {
     height: 420px;
-    border-radius: 0;
+    border-radius: 0 !important;
   }
 }
 
@@ -236,6 +237,8 @@
     overflow: hidden;
 
     border-radius: 12px;
+    border: none !important;
+    box-shadow: none !important;
   }
 
   .hero .photo img {
@@ -287,7 +290,7 @@
     border-radius: 0 0 12px 12px;
   }
 
-  /* BOTÃO LOGO ABAIXO DA FOTO */
+  /* BOTÃO ABAIXO DA FOTO */
 
   .hero .cta {
     grid-area: button;
@@ -295,7 +298,13 @@
     display: flex;
     width: 100%;
 
-    margin-top: 8px;
+    margin-top: 8px !important;
+    padding: 0 !important;
+
+    border: none !important;
+    border-top: none !important;
+    box-shadow: none !important;
+
     gap: 10px;
   }
 
@@ -321,6 +330,16 @@
 
     text-align: center;
     text-decoration: none;
+  }
+
+  /* REMOVE POSSÍVEIS BARRAS DECORATIVAS */
+
+  .hero .photo::before,
+  .hero .photo::after,
+  .hero .cta::before,
+  .hero .cta::after {
+    display: none !important;
+    content: none !important;
   }
 }
 
@@ -350,7 +369,7 @@
   }
 
   .hero .cta {
-    margin-top: 7px;
+    margin-top: 7px !important;
   }
 
   .hero .cta .btn {
@@ -386,7 +405,7 @@
   }
 
   .hero .cta {
-    margin-top: 6px;
+    margin-top: 6px !important;
   }
 
   .hero .cta .btn {
