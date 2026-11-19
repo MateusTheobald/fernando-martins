@@ -1,0 +1,355 @@
+
+/* =========================================
+   CABEÇALHO E ESPAÇAMENTO
+========================================= */
+
+/*
+   OPÇÃO PARA DEIXAR O CABEÇALHO FIXO
+
+   Quando quiser que ele permaneça no topo
+   durante a rolagem, retire os comentários
+   deste bloco e do padding do body abaixo.
+
+header.nav {
+  position: fixed !important;
+  top: 0;
+  left: 0;
+  right: 0;
+  width: 100%;
+  z-index: 999;
+  background: #fff;
+  box-shadow: 0 2px 12px rgba(0, 0, 0, .07);
+}
+
+body {
+  padding-top: 85px;
+}
+
+*/
+
+header.nav {
+  position: relative;
+  width: 100%;
+  background: #fff;
+  box-shadow: 0 2px 12px rgba(0, 0, 0, .07);
+}
+
+header.nav .wrap {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 32px;
+}
+
+/* Espaço entre logo e menu */
+header.nav .brand {
+  margin-right: 25px;
+  flex-shrink: 0;
+}
+
+/* Espaço entre os links */
+header.nav .menu {
+  display: flex;
+  align-items: center;
+  gap: 30px;
+  margin-left: auto;
+  margin-right: 25px;
+}
+
+/* Espaço entre Cursos e redes sociais */
+.header-social {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 12px;
+  flex-shrink: 0;
+  margin-left: 15px;
+}
+
+.header-social .social-icon {
+  width: 34px;
+  height: 34px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  color: #4d7380;
+  background: transparent;
+  border-radius: 50%;
+  text-decoration: none;
+  transition: color .2s ease, background .2s ease, transform .2s ease;
+}
+
+.header-social .social-icon svg {
+  display: block;
+  width: 21px;
+  height: 21px;
+  fill: currentColor;
+}
+
+.header-social .social-icon:hover {
+  color: #1B4B5A;
+  background: rgba(27, 75, 90, .10);
+  transform: translateY(-2px);
+}
+
+/* =========================================
+   CABEÇALHO RESPONSIVO
+========================================= */
+
+@media (max-width: 1100px) {
+  header.nav .wrap {
+    gap: 18px;
+  }
+
+  header.nav .brand {
+    margin-right: 5px;
+  }
+
+  header.nav .menu {
+    gap: 18px;
+    margin-right: 10px;
+  }
+
+  .header-social {
+    gap: 5px;
+    margin-left: 4px;
+  }
+}
+
+@media (max-width: 900px) {
+  header.nav .wrap {
+    position: relative;
+  }
+
+  header.nav .menu {
+    margin-right: 0;
+  }
+
+  .header-social {
+    margin-left: auto;
+    margin-right: 54px;
+  }
+}
+
+@media (max-width: 560px) {
+  .header-social {
+    gap: 1px;
+    margin-right: 48px;
+  }
+
+  .header-social .social-icon {
+    width: 30px;
+    height: 30px;
+  }
+
+  .header-social .social-icon svg {
+    width: 18px;
+    height: 18px;
+  }
+}
+
+
+/* =========================================
+   RODAPÉ COMPACTO FM FINANÇAS
+========================================= */
+
+.fm-footer {
+  width: 100%;
+  background: #153D48;
+  color: #F3F4F2;
+  padding: 30px 5% 14px;
+}
+
+.fm-footer-main {
+  max-width: 1250px;
+  margin: 0 auto;
+  display: grid;
+  grid-template-columns: 1fr .8fr 1.2fr;
+  align-items: center;
+}
+
+/* Logo */
+
+.fm-footer-brand {
+  min-height: 155px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 10px 35px;
+  border-right: 1px solid rgba(243, 244, 242, .35);
+}
+
+.fm-footer-brand a {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+}
+
+.fm-footer-brand img {
+  display: block;
+  width: 100%;
+  max-width: 190px;
+  max-height: 115px;
+  object-fit: contain;
+}
+
+/* Colunas */
+
+.fm-footer-column {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  padding: 8px 35px;
+}
+
+.fm-footer-pages {
+  border-right: 1px solid rgba(243, 244, 242, .35);
+}
+
+.fm-footer-column h4 {
+  color: #F3F4F2;
+  font-size: 16px;
+  font-weight: 700;
+  padding-bottom: 8px;
+  margin: 0 0 3px;
+  border-bottom: 1px solid rgba(243, 244, 242, .5);
+}
+
+.fm-footer-column a {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  width: fit-content;
+  color: #F3F4F2;
+  text-decoration: none;
+  font-size: 14px;
+  line-height: 1.4;
+  transition: color .2s ease, transform .2s ease;
+}
+
+.fm-footer-column a:hover {
+  color: #43B5CB;
+  transform: translateX(3px);
+}
+
+/* Ícones do contato */
+
+.fm-footer-icon {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 22px;
+  min-width: 22px;
+  height: 22px;
+}
+
+.fm-footer-icon svg {
+  display: block;
+  width: 20px;
+  height: 20px;
+  fill: currentColor;
+}
+
+/* Direitos autorais */
+
+.fm-footer-bottom {
+  max-width: 1250px;
+  margin: 20px auto 0;
+  padding-top: 12px;
+  border-top: 1px solid rgba(243, 244, 242, .2);
+  text-align: center;
+  color: rgba(243, 244, 242, .75);
+  font-size: 12px;
+}
+
+
+/* =========================================
+   RODAPÉ RESPONSIVO - TABLET
+========================================= */
+
+@media (max-width: 850px) {
+  .fm-footer {
+    padding: 30px 5% 14px;
+  }
+
+  .fm-footer-main {
+    grid-template-columns: 1fr 1fr;
+    row-gap: 24px;
+  }
+
+  .fm-footer-brand {
+    grid-column: 1 / -1;
+    min-height: auto;
+    border-right: none;
+    border-bottom: 1px solid rgba(243, 244, 242, .3);
+    padding: 0 15px 20px;
+  }
+
+  .fm-footer-brand img {
+    max-width: 170px;
+    max-height: 90px;
+  }
+
+  .fm-footer-pages {
+    border-right: 1px solid rgba(243, 244, 242, .3);
+  }
+
+  .fm-footer-column {
+    padding: 5px 22px;
+  }
+}
+
+
+/* =========================================
+   RODAPÉ RESPONSIVO - CELULAR
+========================================= */
+
+@media (max-width: 520px) {
+  .fm-footer {
+    padding: 25px 24px 12px;
+  }
+
+  .fm-footer-main {
+    grid-template-columns: 1fr;
+    gap: 20px;
+  }
+
+  .fm-footer-brand {
+    grid-column: auto;
+    padding: 0 10px 18px;
+  }
+
+  .fm-footer-brand img {
+    max-width: 155px;
+    max-height: 80px;
+  }
+
+  .fm-footer-pages {
+    border-right: none;
+    border-bottom: 1px solid rgba(243, 244, 242, .3);
+    padding: 0 0 18px;
+  }
+
+  .fm-footer-contact {
+    padding: 0;
+  }
+
+  .fm-footer-column {
+    gap: 9px;
+  }
+
+  .fm-footer-column h4 {
+    font-size: 15px;
+  }
+
+  .fm-footer-column a {
+    font-size: 13px;
+  }
+
+  .fm-footer-bottom {
+    margin-top: 18px;
+    padding-top: 10px;
+    font-size: 11px;
+  }
+}
