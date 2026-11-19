@@ -109,7 +109,7 @@
 }
 
 /* =========================================
-   FOTO DESKTOP
+   FOTO DESKTOP — BORDAS QUADRADAS
 ========================================= */
 
 .hero .photo {
@@ -119,7 +119,7 @@
   position: relative;
   overflow: hidden;
 
-  border-radius: 14px;
+  border-radius: 0;
 }
 
 .hero .photo img {
@@ -130,6 +130,8 @@
 
   object-fit: cover;
   object-position: center top;
+
+  border-radius: 0;
 }
 
 /* =========================================
@@ -137,6 +139,7 @@
 ========================================= */
 
 @media (max-width: 1024px) and (min-width: 821px) {
+
   .hero .wrap {
     gap: 32px;
   }
@@ -151,6 +154,7 @@
 
   .hero .photo {
     height: 420px;
+    border-radius: 0;
   }
 }
 
@@ -217,7 +221,7 @@
     font-style: normal;
   }
 
-  /* FOTO */
+  /* FOTO MAIOR */
 
   .hero .photo {
     grid-area: photo;
@@ -226,7 +230,7 @@
     z-index: 1;
 
     width: 100%;
-    height: clamp(290px, 42svh, 360px);
+    height: clamp(390px, 52svh, 480px);
 
     margin: 0;
     overflow: hidden;
@@ -244,6 +248,8 @@
 
     object-fit: cover;
     object-position: center 18%;
+
+    border-radius: 12px;
   }
 
   /* TEXTO SOBRE A FOTO */
@@ -333,7 +339,7 @@
   }
 
   .hero .photo {
-    height: clamp(270px, 40svh, 320px);
+    height: 400px;
   }
 
   .hero .txt .lead {
@@ -368,7 +374,7 @@
   }
 
   .hero .photo {
-    height: 280px;
+    height: 360px;
   }
 
   .hero .txt .lead {
