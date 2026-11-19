@@ -1,5 +1,13 @@
 
 /* =========================================
+   TEXTO MOBILE — ESCONDIDO NO DESKTOP
+========================================= */
+
+.hero .lead-mobile {
+  display: none;
+}
+
+/* =========================================
    HOME BANNER — MOBILE
 ========================================= */
 
@@ -29,7 +37,6 @@
       "button";
 
     gap: 0;
-    align-items: stretch;
   }
 
   .hero .txt {
@@ -40,7 +47,6 @@
 
   .hero h1 {
     grid-area: title;
-    display: block;
     width: 100%;
     text-align: center;
 
@@ -54,14 +60,22 @@
     font-style: normal;
   }
 
+  /* ESCONDE O TEXTO ORIGINAL */
+
+  .hero .txt .lead {
+    display: none;
+  }
+
   /* FOTO */
 
   .hero .photo {
     grid-area: photo;
     position: relative;
+
     width: 100%;
     height: 470px;
     margin: 0;
+
     overflow: hidden;
     border-radius: 12px;
   }
@@ -76,79 +90,75 @@
 
     object-fit: cover;
     object-position: center 18%;
-
-    border-radius: 12px;
   }
 
-  /* TEXTO SOBRE A FOTO */
+  /* TEXTO DENTRO DA FOTO */
 
-  .hero p {
-    grid-area: photo;
-    align-self: end;
-    justify-self: stretch;
+  .hero .photo .lead-mobile {
+    display: block;
+
+    position: absolute;
     z-index: 2;
+
+    left: 0;
+    right: 0;
+    bottom: 0;
 
     width: 100%;
     max-width: none;
-    min-width: 0;
     box-sizing: border-box;
 
-    padding: 80px 8px 18px 20px;
     margin: 0;
+    padding: 75px 12px 18px 18px;
 
     color: #fff;
     font-size: 14px;
-    line-height: 1.5;
+    line-height: 1.45;
 
     background: linear-gradient(
       to bottom,
       transparent 0%,
-      rgba(20, 58, 70, .45) 35%,
-      rgba(20, 58, 70, .96) 100%
+      rgba(20, 58, 70, 0.55) 35%,
+      rgba(20, 58, 70, 0.97) 100%
     );
 
     border-radius: 0 0 12px 12px;
   }
 
-  /* BOTÃO LARANJA */
+  /* BOTÃO DE DIAGNÓSTICO */
 
   .hero .cta {
     grid-area: button;
 
     display: flex;
-    flex-direction: column;
-
     width: 100%;
+
     margin-top: 8px;
     gap: 12px;
   }
 
-  .hero .cta .btn {
-    width: 100%;
-    min-height: 60px;
-
+  .hero .cta .btn,
+  .hero .cta .btn.wa {
     display: flex;
     align-items: center;
     justify-content: center;
 
+    width: 100%;
+    min-height: 56px;
     box-sizing: border-box;
-    padding: 16px 20px;
 
-    background: var(--coral);
-    color: #fff;
+    padding: 14px 20px;
+
+    background: var(--coral) !important;
+    color: #fff !important;
 
     border: none;
     border-radius: 8px;
 
-    font-size: 18px;
+    font-size: 17px;
     font-weight: 700;
     text-align: center;
     text-decoration: none;
-  }
-
-  .hero .cta .btn:hover {
-    background: var(--coral);
-    transform: translateY(-2px);
   }
 }
 
@@ -171,17 +181,18 @@
     height: 420px;
   }
 
-  .hero p {
+  .hero .photo .lead-mobile {
     font-size: 13px;
-    padding: 65px 6px 16px 16px;
+    padding: 65px 10px 16px 16px;
   }
 
   .hero .cta {
     margin-top: 8px;
   }
 
-  .hero .cta .btn {
-    min-height: 56px;
+  .hero .cta .btn,
+  .hero .cta .btn.wa {
+    min-height: 54px;
     font-size: 16px;
   }
 }
