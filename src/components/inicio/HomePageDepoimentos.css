@@ -1,17 +1,20 @@
+/* =========================================
+   FM FINANÇAS — DEPOIMENTOS
+   Fundo azul e carrossel infinito
+========================================= */
 
 /* =========================================
-   DEPOIMENTOS — SEÇÃO
+   SEÇÃO
 ========================================= */
 
 .depoimentos-section {
   width: 100%;
   padding: 85px 0 95px;
-  background: #F1ECE3;
-  overflow: hidden;
-}
 
-.depoimentos-section .wrap {
-  width: 100%;
+  background: #143a46;
+  color: #FAF7F2;
+
+  overflow: hidden;
 }
 
 /* =========================================
@@ -20,17 +23,18 @@
 
 .depoimentos-heading {
   text-align: center;
-  margin-bottom: 42px;
+  margin-bottom: 48px;
 }
 
 .depoimentos-heading h2 {
-  color: var(--teal);
+  color: #FAF7F2;
   margin: 0;
 }
 
 .depoimentos-heading p {
   margin: 14px auto 0;
-  color: #64777D;
+
+  color: #C5D6DA;
   font-size: 16px;
 }
 
@@ -42,33 +46,71 @@
   position: relative;
   width: 100%;
   overflow: hidden;
-}
 
-.depoimentos-track {
-  display: flex;
-  align-items: stretch;
-  gap: 40px;
+  -webkit-mask-image: linear-gradient(
+    to right,
+    transparent,
+    #000 5%,
+    #000 95%,
+    transparent
+  );
 
-  width: 100%;
-
-  overflow-x: auto;
-  overflow-y: hidden;
-
-  padding: 0 calc((100% - 500px) / 2);
-
-  scroll-snap-type: x mandatory;
-  scroll-behavior: smooth;
-  scrollbar-width: none;
-
-  -webkit-overflow-scrolling: touch;
-}
-
-.depoimentos-track::-webkit-scrollbar {
-  display: none;
+  mask-image: linear-gradient(
+    to right,
+    transparent,
+    #000 5%,
+    #000 95%,
+    transparent
+  );
 }
 
 /* =========================================
-   CARD
+   ANIMAÇÃO INFINITA
+========================================= */
+
+.depoimentos-track {
+  display: flex;
+  width: max-content;
+
+  animation: depoimentos-loop 42s linear infinite;
+
+  will-change: transform;
+}
+
+@keyframes depoimentos-loop {
+
+  from {
+    transform: translateX(0);
+  }
+
+  to {
+    transform: translateX(-50%);
+  }
+
+}
+
+/* PAUSA AO PASSAR O MOUSE */
+
+.depoimentos-carousel:hover .depoimentos-track {
+  animation-play-state: paused;
+}
+
+/* =========================================
+   GRUPOS DE DEPOIMENTOS
+========================================= */
+
+.depoimentos-group {
+  display: flex;
+  flex: 0 0 auto;
+
+  align-items: stretch;
+
+  gap: 40px;
+  padding-right: 40px;
+}
+
+/* =========================================
+   CARDS
 ========================================= */
 
 .depoimento-card {
@@ -84,14 +126,17 @@
 
   padding: 25px 28px 0;
 
-  background: #F5F5F7;
+  background: #F1F2F4;
+  color: #263442;
 
-  border: 1px solid #202020;
+  border: 1px solid rgba(255,255,255,.55);
   border-radius: 12px;
 
-  scroll-snap-align: center;
+  transition: transform .3s ease;
+}
 
-  transition: background .25s ease;
+.depoimento-card:hover {
+  transform: translateY(-5px);
 }
 
 /* =========================================
@@ -110,12 +155,14 @@
   color: #1B1B1B;
 
   font-family: Georgia, serif;
-  font-size: 27px;
+  font-size: 29px;
   font-weight: 700;
   line-height: 1;
 
   margin-bottom: 13px;
 }
+
+/* IDENTIFICAÇÃO */
 
 .depoimento-label {
   color: #1B4B5A;
@@ -128,6 +175,8 @@
 
   margin-bottom: 12px;
 }
+
+/* TEXTO */
 
 .depoimento-text {
   width: 100%;
@@ -171,6 +220,8 @@
   border-top: 1px solid #9DA7B0;
 }
 
+/* AVATAR ANÔNIMO */
+
 .depoimento-avatar {
   width: 39px;
   height: 39px;
@@ -189,50 +240,6 @@
 }
 
 /* =========================================
-   SETAS
-========================================= */
-
-.depoimentos-arrow {
-  position: absolute;
-  top: 50%;
-  z-index: 5;
-
-  transform: translateY(-50%);
-
-  width: 38px;
-  height: 48px;
-
-  display: flex;
-  align-items: center;
-  justify-content: center;
-
-  border: none;
-  background: transparent;
-
-  color: #087BFF;
-
-  font-family: Arial, sans-serif;
-  font-size: 42px;
-  font-weight: 300;
-
-  cursor: pointer;
-
-  transition: opacity .2s ease;
-}
-
-.depoimentos-arrow:hover {
-  opacity: .6;
-}
-
-.depoimentos-arrow.prev {
-  left: 4px;
-}
-
-.depoimentos-arrow.next {
-  right: 4px;
-}
-
-/* =========================================
    TABLETS
 ========================================= */
 
@@ -243,32 +250,26 @@
   }
 
   .depoimentos-heading {
-    margin-bottom: 30px;
+    margin-bottom: 35px;
   }
 
-  .depoimentos-track {
-    gap: 20px;
-    padding: 0 9%;
+  .depoimentos-group {
+    gap: 24px;
+    padding-right: 24px;
   }
 
   .depoimento-card {
-    flex-basis: 82%;
+    flex-basis: 420px;
+
     min-height: 290px;
+
     padding: 23px 22px 0;
   }
 
-  .depoimentos-arrow {
-    width: 30px;
-    font-size: 36px;
+  .depoimentos-track {
+    animation-duration: 36s;
   }
 
-  .depoimentos-arrow.prev {
-    left: 0;
-  }
-
-  .depoimentos-arrow.next {
-    right: 0;
-  }
 }
 
 /* =========================================
@@ -281,14 +282,9 @@
     padding: 55px 0 65px;
   }
 
-  .depoimentos-section .wrap {
-    padding-left: 0;
-    padding-right: 0;
-  }
-
   .depoimentos-heading {
     padding: 0 20px;
-    margin-bottom: 28px;
+    margin-bottom: 30px;
   }
 
   .depoimentos-heading h2 {
@@ -299,13 +295,13 @@
     font-size: 14px;
   }
 
-  .depoimentos-track {
+  .depoimentos-group {
     gap: 16px;
-    padding: 0 8%;
+    padding-right: 16px;
   }
 
   .depoimento-card {
-    flex-basis: 84%;
+    flex-basis: 84vw;
 
     min-height: 285px;
 
@@ -332,11 +328,10 @@
     height: 36px;
   }
 
-  .depoimentos-arrow {
-    width: 27px;
-    height: 40px;
-    font-size: 32px;
+  .depoimentos-track {
+    animation-duration: 32s;
   }
+
 }
 
 /* =========================================
@@ -346,16 +341,27 @@
 @media (max-width: 380px) {
 
   .depoimento-card {
-    flex-basis: 86%;
-    min-height: 300px;
-    padding: 20px 17px 0;
-  }
+    flex-basis: 86vw;
 
-  .depoimentos-track {
-    padding: 0 7%;
+    min-height: 300px;
+
+    padding: 20px 17px 0;
   }
 
   .depoimento-text {
     font-size: 11.5px;
   }
+
+}
+
+/* =========================================
+   ACESSIBILIDADE
+========================================= */
+
+@media (prefers-reduced-motion: reduce) {
+
+  .depoimentos-track {
+    animation: none;
+  }
+
 }
