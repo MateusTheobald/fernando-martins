@@ -1,6 +1,10 @@
-
 /* =========================================
    FM FINANÇAS — DEPOIMENTOS
+   LOOPING INFINITO POR ETAPAS
+========================================= */
+
+/* =========================================
+   SEÇÃO
 ========================================= */
 
 .depoimentos-section {
@@ -40,35 +44,29 @@
 .depoimentos-carousel {
   position: relative;
   width: 100%;
+}
+
+.depoimentos-viewport {
+  position: relative;
+  width: 100%;
   overflow: hidden;
 }
 
 .depoimentos-track {
+  position: relative;
+
   display: flex;
   align-items: stretch;
 
+  width: max-content;
+
   gap: 40px;
 
-  width: 100%;
+  transform: translate3d(0, 0, 0);
 
-  overflow-x: auto;
-  overflow-y: hidden;
+  transition: transform .75s ease;
 
-  padding: 0 calc((100% - 500px) / 2);
-
-  box-sizing: border-box;
-
-  scroll-snap-type: x mandatory;
-  scroll-behavior: smooth;
-
-  scrollbar-width: none;
-  -ms-overflow-style: none;
-
-  -webkit-overflow-scrolling: touch;
-}
-
-.depoimentos-track::-webkit-scrollbar {
-  display: none;
+  will-change: transform;
 }
 
 /* =========================================
@@ -94,9 +92,7 @@
   border: 1px solid rgba(255,255,255,.55);
   border-radius: 12px;
 
-  scroll-snap-align: center;
-
-  opacity: .72;
+  opacity: .65;
 
   transition:
     opacity .4s ease,
@@ -105,7 +101,6 @@
 
 .depoimento-card.active {
   opacity: 1;
-  transform: scale(1);
 }
 
 /* =========================================
@@ -233,14 +228,11 @@
 
   cursor: pointer;
 
-  transition:
-    color .2s ease,
-    transform .2s ease;
+  transition: color .2s ease;
 }
 
 .depoimentos-arrow:hover {
   color: #64B1FF;
-  transform: translateY(-50%) scale(1.12);
 }
 
 .depoimentos-arrow.prev {
@@ -306,12 +298,10 @@
 
   .depoimentos-track {
     gap: 24px;
-    padding: 0 calc((100% - 420px) / 2);
   }
 
   .depoimento-card {
     flex-basis: 420px;
-
     min-height: 290px;
 
     padding: 23px 22px 0;
@@ -324,7 +314,6 @@
   .depoimentos-arrow.next {
     right: 4px;
   }
-
 }
 
 /* =========================================
@@ -357,7 +346,6 @@
 
   .depoimentos-track {
     gap: 16px;
-    padding: 0 8%;
   }
 
   .depoimento-card {
@@ -401,7 +389,6 @@
   .depoimentos-arrow.next {
     right: 0;
   }
-
 }
 
 /* =========================================
@@ -420,7 +407,6 @@
   .depoimento-text {
     font-size: 11.5px;
   }
-
 }
 
 /* =========================================
@@ -430,7 +416,7 @@
 @media (prefers-reduced-motion: reduce) {
 
   .depoimentos-track {
-    scroll-behavior: auto;
+    transition: none;
   }
 
   .depoimento-card,
@@ -438,5 +424,4 @@
   .depoimento-dot {
     transition: none;
   }
-
 }
