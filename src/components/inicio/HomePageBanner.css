@@ -231,19 +231,23 @@
     position: relative;
     z-index: 1;
 
+    display: block;
+
     width: 100%;
     height: clamp(390px, 52svh, 480px);
 
-    margin: 0;
-    padding: 0;
+    margin: 0 !important;
+    padding: 0 !important;
 
-    overflow: hidden;
+    overflow: hidden !important;
 
     border: none !important;
-    border-radius: 12px;
-    box-shadow: none !important;
+    border-radius: 14px !important;
 
-    background: transparent;
+    box-shadow: none !important;
+    background: transparent !important;
+
+    line-height: 0;
   }
 
   .hero .photo img {
@@ -259,7 +263,9 @@
     object-fit: cover;
     object-position: center 18%;
 
-    border-radius: 12px;
+    border: none !important;
+    border-radius: 14px !important;
+    box-shadow: none !important;
   }
 
   /* TEXTO SOBRE A FOTO */
@@ -279,7 +285,7 @@
 
     box-sizing: border-box;
 
-    margin: 0;
+    margin: 0 !important;
     padding: 65px 12px 16px 18px;
 
     color: #fff;
@@ -296,11 +302,13 @@
       rgba(20, 58, 70, .76) 100%
     );
 
-    border: none;
-    border-radius: 0 0 12px 12px;
+    border: none !important;
+    border-radius: 0 0 14px 14px;
+
+    box-shadow: none !important;
   }
 
-  /* BOTÃO LOGO ABAIXO DA FOTO */
+  /* BOTÃO ABAIXO DA FOTO */
 
   .hero .cta {
     grid-area: button;
@@ -318,6 +326,8 @@
     border: none !important;
     box-shadow: none !important;
     background: transparent !important;
+
+    line-height: normal;
   }
 
   .hero .cta .btn {
@@ -345,15 +355,21 @@
     text-decoration: none;
   }
 
-  /* REMOVE ELEMENTOS DECORATIVOS QUE POSSAM
-     CRIAR BARRAS ABAIXO DA FOTO */
+  /* REMOVE ELEMENTOS DECORATIVOS E BARRAS */
 
   .hero .photo::before,
   .hero .photo::after,
   .hero .cta::before,
-  .hero .cta::after {
+  .hero .cta::after,
+  .hero .photo img::before,
+  .hero .photo img::after {
     display: none !important;
     content: none !important;
+  }
+
+  .hero .photo,
+  .hero .photo img {
+    outline: none !important;
   }
 }
 
