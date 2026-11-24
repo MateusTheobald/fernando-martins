@@ -1,3 +1,20 @@
-/* Estilos específicos de ConsultoriaPageComoFunciona.
-   Os estilos compartilhados permanecem em src/styles/global.css.
-   Use este arquivo para ajustes exclusivos deste bloco. */
+
+/* =========================================
+   COMO FUNCIONA — MOBILE
+========================================= */
+
+@media (max-width: 820px) {
+
+  .steps {
+    display: grid !important;
+    grid-template-columns: 1fr !important;
+    gap: 16px;
+    margin-top: 28px;
+  }
+
+  .steps .step {
+    width: 100%;
+    min-width: 0;
+  }
+
+}
