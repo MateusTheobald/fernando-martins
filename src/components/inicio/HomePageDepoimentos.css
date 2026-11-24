@@ -1,3 +1,4 @@
+
 /* =========================================
    FM FINANÇAS — DEPOIMENTOS
    LOOPING INFINITO POR ETAPAS
@@ -349,7 +350,8 @@
   }
 
   .depoimento-card {
-    flex-basis: 84vw;
+    /* Mais espaço para os cards laterais aparecerem */
+    flex-basis: 74vw;
 
     min-height: 285px;
 
@@ -398,7 +400,7 @@
 @media (max-width: 380px) {
 
   .depoimento-card {
-    flex-basis: 86vw;
+    flex-basis: 76vw;
     min-height: 300px;
 
     padding: 20px 17px 0;
