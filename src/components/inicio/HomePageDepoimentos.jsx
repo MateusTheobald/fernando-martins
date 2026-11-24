@@ -1,4 +1,3 @@
-
 import { useEffect, useRef, useState } from "react";
 import "./HomePageDepoimentos.css";
 
@@ -28,51 +27,104 @@ const depoimentos = [
 
 export default function HomePageDepoimentos() {
   const trackRef = useRef(null);
-  const [indice, setIndice] = useState(0);
+  const indiceRef = useRef(1);
+  const inicializadoRef = useRef(false);
 
-  const navegar = (novoIndice) => {
-    const proximo =
-      (novoIndice + depoimentos.length) % depoimentos.length;
+  const [indice, setIndice] = useState(1);
 
+  // Duplica o primeiro e o último para criar o looping
+  const slides = [
+    { ...depoimentos[depoimentos.length - 1], clone: "inicio" },
+    ...depoimentos,
+    { ...depoimentos[0], clone: "fim" },
+  ];
+
+  // Posiciona o card no centro
+  const posicionarCard = (numero, animar = true) => {
+    const track = trackRef.current;
+    if (!track) return;
+
+    const cards = track.querySelectorAll(".depoimento-card");
+    const card = cards[numero];
+
+    if (!card) return;
+
+    const viewport = track.parentElement;
+
+    const destino =
+      card.offsetLeft -
+      (viewport.clientWidth - card.offsetWidth) / 2;
+
+    if (!animar) {
+      track.style.transition = "none";
+    }
+
+    track.style.transform = `translate3d(${-destino}px, 0, 0)`;
+
+    if (!animar) {
+      track.offsetHeight;
+      track.style.transition = "transform .75s ease";
+    }
+  };
+
+  // Inicialização e movimentação
+  useEffect(() => {
+    posicionarCard(indice, inicializadoRef.current);
+
+    if (!inicializadoRef.current) {
+      inicializadoRef.current = true;
+    }
+  }, [indice]);
+
+  // Navegação manual
+  const navegar = (direcao) => {
+    const proximo = indiceRef.current + direcao;
+
+    indiceRef.current = proximo;
     setIndice(proximo);
   };
 
-  // Avanço automático a cada 5 segundos
+  // Avanço automático
   useEffect(() => {
     const intervalo = setInterval(() => {
-      setIndice((atual) => (atual + 1) % depoimentos.length);
+      navegar(1);
     }, 5000);
 
     return () => clearInterval(intervalo);
   }, []);
 
-  // Centraliza o card selecionado
-  useEffect(() => {
-    const track = trackRef.current;
+  // Corrige o posicionamento sem mostrar o retorno
+  const finalizarTransicao = (event) => {
+    if (event.target !== trackRef.current) return;
+    if (event.propertyName !== "transform") return;
 
+    const atual = indiceRef.current;
+
+    let destino = atual;
+
+    if (atual === depoimentos.length + 1) {
+      destino = 1;
+    } else if (atual === 0) {
+      destino = depoimentos.length;
+    } else {
+      return;
+    }
+
+    const track = trackRef.current;
     if (!track) return;
 
-    const cards = track.querySelectorAll(".depoimento-card");
-    const card = cards[indice];
+    // Reposicionamento invisível
+    track.style.transition = "none";
 
-    if (!card) return;
+    indiceRef.current = destino;
 
-    const destino =
-      card.offsetLeft -
-      (track.clientWidth - card.offsetWidth) / 2;
+    posicionarCard(destino, false);
 
-    if (indice === 0 && track.scrollLeft > destino) {
-      track.scrollTo({
-        left: destino,
-        behavior: "auto",
-      });
-    } else {
-      track.scrollTo({
-        left: destino,
-        behavior: "smooth",
-      });
-    }
-  }, [indice]);
+    setIndice(destino);
+  };
+
+  const indiceReal =
+    (indice - 1 + depoimentos.length) % depoimentos.length;
 
   return (
     <section className="depoimentos-section">
@@ -91,63 +143,80 @@ export default function HomePageDepoimentos() {
 
       <div className="depoimentos-carousel">
 
+        {/* SETA ANTERIOR */}
+
         <button
           className="depoimentos-arrow prev"
-          onClick={() => navegar(indice - 1)}
+          onClick={() => navegar(-1)}
           aria-label="Depoimento anterior"
         >
           &#8249;
         </button>
 
-        <div
-          className="depoimentos-track"
-          ref={trackRef}
-        >
+        {/* CARROSSEL */}
 
-          {depoimentos.map((item, index) => (
-            <article
-              className={`depoimento-card ${
-                indice === index ? "active" : ""
-              }`}
-              key={item.id}
-            >
+        <div className="depoimentos-viewport">
 
-              <div className="depoimento-content">
+          <div
+            className="depoimentos-track"
+            ref={trackRef}
+            onTransitionEnd={finalizarTransicao}
+          >
 
-                <span className="depoimento-quote">
-                  “
-                </span>
+            {slides.map((item, index) => {
 
-                <span className="depoimento-label">
-                  {item.titulo}
-                </span>
+              const ativo = indice === index;
 
-                <p className="depoimento-text">
-                  {item.texto}
-                </p>
+              return (
+                <article
+                  className={`depoimento-card ${
+                    ativo ? "active" : ""
+                  }`}
+                  key={item.clone || item.id}
+                  aria-hidden={!ativo}
+                >
 
-                <div className="depoimento-signature">
-                  {item.assinatura}
-                </div>
+                  <div className="depoimento-content">
 
-              </div>
+                    <span className="depoimento-quote">
+                      “
+                    </span>
 
-              <div className="depoimento-footer">
+                    <span className="depoimento-label">
+                      {item.titulo}
+                    </span>
 
-                <div className="depoimento-avatar">
-                  {item.inicial}
-                </div>
+                    <p className="depoimento-text">
+                      {item.texto}
+                    </p>
 
-              </div>
+                    <div className="depoimento-signature">
+                      {item.assinatura}
+                    </div>
 
-            </article>
-          ))}
+                  </div>
+
+                  <div className="depoimento-footer">
+
+                    <div className="depoimento-avatar">
+                      {item.inicial}
+                    </div>
+
+                  </div>
+
+                </article>
+              );
+            })}
+
+          </div>
 
         </div>
 
+        {/* SETA PRÓXIMA */}
+
         <button
           className="depoimentos-arrow next"
-          onClick={() => navegar(indice + 1)}
+          onClick={() => navegar(1)}
           aria-label="Próximo depoimento"
         >
           &#8250;
@@ -158,16 +227,18 @@ export default function HomePageDepoimentos() {
       {/* INDICADORES */}
 
       <div className="depoimentos-dots">
+
         {depoimentos.map((item, index) => (
           <button
             key={item.id}
             className={`depoimento-dot ${
-              indice === index ? "active" : ""
+              indiceReal === index ? "active" : ""
             }`}
-            onClick={() => navegar(index)}
+            onClick={() => navegar(index - indiceReal)}
             aria-label={`Ir para depoimento ${index + 1}`}
           />
         ))}
+
       </div>
 
     </section>
