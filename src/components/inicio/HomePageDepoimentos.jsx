@@ -1,4 +1,5 @@
-import { useEffect, useRef, useState } from "react";
+
+import { useEffect, useLayoutEffect, useRef, useState } from "react";
 import "./HomePageDepoimentos.css";
 
 const depoimentos = [
@@ -25,21 +26,35 @@ const depoimentos = [
   },
 ];
 
+const TOTAL = depoimentos.length;
+const INDICE_INICIAL = TOTAL;
+
 export default function HomePageDepoimentos() {
   const trackRef = useRef(null);
-  const indiceRef = useRef(1);
+  const indiceRef = useRef(INDICE_INICIAL);
+  const [indice, setIndice] = useState(INDICE_INICIAL);
+
   const inicializadoRef = useRef(false);
 
-  const [indice, setIndice] = useState(1);
-
-  // Duplica o primeiro e o último para criar o looping
+  // Três cópias completas: anterior, principal e próxima
   const slides = [
-    { ...depoimentos[depoimentos.length - 1], clone: "inicio" },
-    ...depoimentos,
-    { ...depoimentos[0], clone: "fim" },
+    ...depoimentos.map((item, index) => ({
+      ...item,
+      chave: `anterior-${index}`,
+    })),
+
+    ...depoimentos.map((item, index) => ({
+      ...item,
+      chave: `principal-${index}`,
+    })),
+
+    ...depoimentos.map((item, index) => ({
+      ...item,
+      chave: `proxima-${index}`,
+    })),
   ];
 
-  // Posiciona o card no centro
+  // Calcula a posição central do card
   const posicionarCard = (numero, animar = true) => {
     const track = trackRef.current;
     if (!track) return;
@@ -55,20 +70,19 @@ export default function HomePageDepoimentos() {
       card.offsetLeft -
       (viewport.clientWidth - card.offsetWidth) / 2;
 
-    if (!animar) {
-      track.style.transition = "none";
-    }
+    track.style.transition = animar
+      ? "transform .75s ease"
+      : "none";
 
     track.style.transform = `translate3d(${-destino}px, 0, 0)`;
 
     if (!animar) {
       track.offsetHeight;
-      track.style.transition = "transform .75s ease";
     }
   };
 
-  // Inicialização e movimentação
-  useEffect(() => {
+  // Posicionamento inicial e movimentação
+  useLayoutEffect(() => {
     posicionarCard(indice, inicializadoRef.current);
 
     if (!inicializadoRef.current) {
@@ -76,12 +90,28 @@ export default function HomePageDepoimentos() {
     }
   }, [indice]);
 
-  // Navegação manual
-  const navegar = (direcao) => {
-    const proximo = indiceRef.current + direcao;
+  // Recalcula a posição quando a tela muda de tamanho
+  useEffect(() => {
+    const ajustarPosicao = () => {
+      posicionarCard(indiceRef.current, false);
+    };
 
-    indiceRef.current = proximo;
-    setIndice(proximo);
+    window.addEventListener("resize", ajustarPosicao);
+
+    return () => {
+      window.removeEventListener("resize", ajustarPosicao);
+    };
+  }, []);
+
+  // Atualiza o índice
+  const atualizarIndice = (novoIndice) => {
+    indiceRef.current = novoIndice;
+    setIndice(novoIndice);
+  };
+
+  // Navegação manual e automática
+  const navegar = (direcao) => {
+    atualizarIndice(indiceRef.current + direcao);
   };
 
   // Avanço automático
@@ -93,7 +123,7 @@ export default function HomePageDepoimentos() {
     return () => clearInterval(intervalo);
   }, []);
 
-  // Corrige o posicionamento sem mostrar o retorno
+  // Reposiciona entre as cópias sem mostrar o retorno
   const finalizarTransicao = (event) => {
     if (event.target !== trackRef.current) return;
     if (event.propertyName !== "transform") return;
@@ -102,18 +132,22 @@ export default function HomePageDepoimentos() {
 
     let destino = atual;
 
-    if (atual === depoimentos.length + 1) {
-      destino = 1;
-    } else if (atual === 0) {
-      destino = depoimentos.length;
-    } else {
-      return;
+    // Chegou à terceira cópia: retorna à cópia central
+    if (atual >= TOTAL * 2) {
+      destino = atual - TOTAL;
     }
+
+    // Chegou à primeira cópia: retorna à cópia central
+    else if (atual < TOTAL) {
+      destino = atual + TOTAL;
+    }
+
+    if (destino === atual) return;
 
     const track = trackRef.current;
     if (!track) return;
 
-    // Reposicionamento invisível
+    // O card visualmente é idêntico; apenas troca a cópia
     track.style.transition = "none";
 
     indiceRef.current = destino;
@@ -121,10 +155,14 @@ export default function HomePageDepoimentos() {
     posicionarCard(destino, false);
 
     setIndice(destino);
+
+    // Restaura a animação para os próximos movimentos
+    track.offsetHeight;
+    track.style.transition = "transform .75s ease";
   };
 
-  const indiceReal =
-    (indice - 1 + depoimentos.length) % depoimentos.length;
+  // Identifica qual depoimento original está ativo
+  const indiceReal = ((indice % TOTAL) + TOTAL) % TOTAL;
 
   return (
     <section className="depoimentos-section">
@@ -172,7 +210,7 @@ export default function HomePageDepoimentos() {
                   className={`depoimento-card ${
                     ativo ? "active" : ""
                   }`}
-                  key={item.clone || item.id}
+                  key={item.chave}
                   aria-hidden={!ativo}
                 >
 
@@ -234,7 +272,9 @@ export default function HomePageDepoimentos() {
             className={`depoimento-dot ${
               indiceReal === index ? "active" : ""
             }`}
-            onClick={() => navegar(index - indiceReal)}
+            onClick={() => {
+              atualizarIndice(TOTAL + index);
+            }}
             aria-label={`Ir para depoimento ${index + 1}`}
           />
         ))}
