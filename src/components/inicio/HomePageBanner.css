@@ -247,7 +247,7 @@
     box-shadow: none !important;
     background: transparent !important;
 
-    line-height: 0;
+    line-height: 0 !important;
   }
 
   .hero .photo img {
@@ -260,11 +260,14 @@
     height: 100%;
     max-height: none;
 
+    margin: 0 !important;
+
     object-fit: cover;
     object-position: center 18%;
 
     border: none !important;
     border-radius: 14px !important;
+
     box-shadow: none !important;
   }
 
@@ -355,7 +358,7 @@
     text-decoration: none;
   }
 
-  /* REMOVE ELEMENTOS DECORATIVOS E BARRAS */
+  /* REMOVE ELEMENTOS DECORATIVOS */
 
   .hero .photo::before,
   .hero .photo::after,
@@ -366,6 +369,8 @@
     display: none !important;
     content: none !important;
   }
+
+  /* REMOVE CONTORNOS E SOMBRAS */
 
   .hero .photo,
   .hero .photo img {
